@@ -7,7 +7,7 @@ Gem::Specification.new do |spec|
   spec.authors       = ['Ryan Buckley', 'Paul Chavard', 'Sami Samhuri']
   spec.email         = ['arebuckley@gmail.com', 'paul+github@chavard.net', 'sami@samhuri.net']
   spec.summary       = %q{A logger for the Grape framework}
-  spec.description   = %q{Logging middleware for the Grape framework, that uses Lograge}
+  spec.description   = %q{Logging middleware for Grape that uses Lograge to format logs}
   spec.homepage      = 'https://github.com/1SecondEveryday/grape-middleware-lograge'
   spec.license       = 'MIT'
 

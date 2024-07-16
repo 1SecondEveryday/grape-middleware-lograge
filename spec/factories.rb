@@ -13,7 +13,7 @@ FactoryBot.define do
   end
 
   class App
-    attr_accessor :response
+    attr_accessor :logger, :response
 
     def call(_env)
       response

@@ -68,15 +68,14 @@ describe Grape::Middleware::Lograge do
       expect(payload[:status]).to eq(403)
     end
 
-    context 'when :message is set in the error object' do
+    context 'when a message is set in the error object' do
       let(:error) { { message: 'Oops, not found' } }
 
       it 'logs the error message' do
-        pending('implement error messages')
         expect(subject).to receive(:after).with(payload, nil).and_call_original
         expect(subject).to receive(:env).twice.and_return(env)
         subject.after_failure(payload, error)
-        expect(payload[:message]).to match(Regexp.new(error[:message]))
+        expect(payload[:message]).to eq(error[:message])
       end
     end
   end

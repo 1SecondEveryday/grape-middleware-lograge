@@ -84,6 +84,8 @@ class Grape::Middleware::Lograge < Grape::Middleware::Globals
   def after_failure(payload, error)
     ActiveSupport::Notifications.unsubscribe(@db_subscription) if @db_subscription
 
+    payload[:message] = error[:message]
+
     after(payload, error[:status])
   end
 
