@@ -4,7 +4,6 @@ source 'https://rubygems.org'
 gemspec
 
 group :test do
-  gem 'rake'
-  gem "factory_girl", "~> 4.0"
-  gem "rails", "~> 4.2"
+  gem 'factory_bot', '~> 6.4'
+  gem 'rails', '~> 7.1'
 end

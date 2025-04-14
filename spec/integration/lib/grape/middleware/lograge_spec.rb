@@ -12,13 +12,12 @@ describe Grape::Middleware::Lograge, type: :integration do
   let(:env) { build(:expected_env, grape_endpoint: grape_endpoint) }
 
   it 'logs all parts of the request' do
-    pending('test payload object')
-    expect(subject.logger).to receive(:info).with ''
-    expect(subject.logger).to receive(:info).with %Q(Started POST "/api/1.0/users" at #{subject.start_time})
-    expect(subject.logger).to receive(:info).with %Q(Processing by TestAPI#users)
-    expect(subject.logger).to receive(:info).with %Q(  Parameters: {"id"=>"101001", "name"=>"foo", "password"=>"[FILTERED]"})
-    expect(subject.logger).to receive(:info).with /Completed 200 in \d+.\d+ms/
-    expect(subject.logger).to receive(:info).with ''
+    expect(app.logger).to receive(:info).with ''
+    expect(app.logger).to receive(:info).with %Q(Started POST "/api/1.0/users" at blah)
+    expect(app.logger).to receive(:info).with %Q(Processing by TestAPI#users)
+    expect(app.logger).to receive(:info).with %Q(  Parameters: {"id"=>"101001", "name"=>"foo", "password"=>"[FILTERED]"})
+    expect(app.logger).to receive(:info).with /Completed 200 in \d+.\d+ms/
+    expect(app.logger).to receive(:info).with ''
     subject.call!(env)
   end
 

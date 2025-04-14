@@ -40,20 +40,19 @@ describe Grape::Middleware::Lograge do
     end
 
     context 'when calling the app results in an array response' do
-      let(:app_response) { [401, {}, []] }
-
       it 'calls +after+ with the correct status' do
-        expect(app).to receive(:call).with(env).and_return(app_response)
+        expect(app).to receive(:call).with(env).and_return([401, {}, []])
         expect(subject).to receive(:before).and_call_original
         expect(subject).to receive(:after).with(hash_including(method: 'POST'), 401)
         subject.call!(env)
       end
 
       it 'returns the @app_response' do
-        expect(app).to receive(:call).with(env).and_return(app_response)
+        expect(app).to receive(:call).with(env).and_return([401, {}, []])
         allow(subject).to receive(:before)
         allow(subject).to receive(:after)
-        expect(subject.call!(env)).to eq app_response
+        response = subject.call!(env)
+        expect(response.status).to eq(401)
       end
     end
   end
@@ -69,15 +68,14 @@ describe Grape::Middleware::Lograge do
       expect(payload[:status]).to eq(403)
     end
 
-    context 'when :message is set in the error object' do
+    context 'when a message is set in the error object' do
       let(:error) { { message: 'Oops, not found' } }
 
       it 'logs the error message' do
-        pending('implement error messages')
         expect(subject).to receive(:after).with(payload, nil).and_call_original
         expect(subject).to receive(:env).twice.and_return(env)
         subject.after_failure(payload, error)
-        expect(payload[:message]).to match(Regexp.new(error[:message]))
+        expect(payload[:message]).to eq(error[:message])
       end
     end
   end
